@@ -1,1 +1,1357 @@
+<!DOCTYPE html>
+<html lang="th">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คลินิคเฟิร์สฟิสิโอ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="images/favicon_io/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.io/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.io/apple-touch-icon.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Kanit', sans-serif;
+            background: linear-gradient(135deg, #faf8ff 0%, #f4f0ff 100%);
+
+            /* Card styles */
+            .glass-card {
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(100, 52, 154, 0.1);
+            }
+
+            .product-card {
+                transition: all 0.3s ease;
+                border: 1px solid #e5e7eb;
+            }
+
+            .product-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 20px 25px -5px rgba(100, 52, 154, 0.15), 0 10px 10px -5px rgba(100, 52, 154, 0.1);
+            }
+
+            /* Custom color classes */
+            .custom-purple {
+                background-color: #64349A;
+            }
+
+            .custom-purple-light {
+                background-color: #f8f9ff;
+            }
+
+            .custom-purple-text {
+                color: #64349A;
+            }
+
+            .custom-purple-border {
+                border-color: #64349A;
+            }
+
+            .custom-purple-shadow {
+                box-shadow: 0 4px 6px rgba(100, 52, 154, 0.1);
+            }
+
+            .gradient-text {
+                background: linear-gradient(135deg, #64349A 0%, #8B5FBF 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            /* Image Slider Styles */
+            .slider-image {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                object-position: center;
+                transition: transform 0.3s ease;
+                background: #f8f9fa;
+                border-radius: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/70 shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center space-x-3">
+                <img src="images/logo_physio.jpg" alt="คลินิคเฟิร์สฟิสิโอ" class="h-12 w-auto">
+                <span class="font-bold text-xl text-purple-800">1st Physio Clinic</span>
+            </div>
+            <!-- Nav -->
+            <nav class="hidden md:flex space-x-6 font-medium">
+                <a href="#" class="hover:text-purple-600 transition">หน้าหลัก</a>
+                <a href="https://www.firstphysioclinics.com/" class="hover:text-purple-600 transition">สินค้า</a>
+                <a href="https://www.firstphysioclinics.com/contactus"
+                    class="hover:text-purple-600 transition">ติดต่อ</a>
+            </nav>
+            <button class="md:hidden text-purple-800">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Main Calculator Card -->
+        <section>
+            <br>
+            <br>
+
+        </section>
+        <section class="max-w-4xl mx-auto">
+            <div class="glass-card rounded-2xl shadow-2xl p-8 slide-up">
+                <div class="text-center mb-8">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-full mb-4">
+                        <i class="fas fa-calculator text-2xl custom-purple-text"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">ค้นหาขนาดอุปกรณ์กายภาพ</h3>
+                    <p class="text-gray-600">
+                        เลือกอุปกรณ์และกรอกข้อมูลเพื่อค้นหาขนาดที่เหมาะสม
+                    </p>
+                </div>
+
+                <!-- Device Selection Card -->
+                <div class="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-6 mb-6 border border-purple-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-medical-bag custom-purple-text mr-3"></i>
+                            <h4 class="text-lg font-semibold text-gray-800">เลือกประเภทอุปกรณ์</h4>
+                        </div>
+                    </div>
+
+                    <div>
+                        <!-- แทนที่ select เดิม -->
+                        <label for="deviceName" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-list-ul mr-2"></i>ชื่ออุปกรณ์
+                        </label>
+                        <input list="device-list" id="deviceName" name="deviceName"
+                            onchange="toggleInputs(); calculateSize();"
+                            class="w-full px-4 py-3 text-base border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ease-in-out hover:border-purple-300 bg-white shadow-sm" />
+                        <datalist id="device-list">
+                            <option value="OT196 ไม้ค้ำยัน (Crutches)">
+                            <option value="S001 เฝือกอ่อนพยุงคอ (Soft collar)">
+                            <option value="S004 อุปกรณ์พยุงข้อไหล่หลวม (Bobath sling)">
+                            <option value="S006 อุปกรณ์พยุงแขน (Arm sling)">
+                            <option value="S008 อุปกรณ์พยุงข้อศอก (Tennis and Golf Elbow)">
+                            <option value="S010 ประคองนิ้วหัวแม่มือ (Thumb Support)">
+                            <option value="S013 อุปกรณ์พยุงหลังแบบถอดสายได้ (Back support)">
+                            <option value="S014 อุปกรณ์พยุงหลังและสะโพก (Lumbar support)">
+                            <option value="S015 เสื้อพยุงหลังค่อม (thoracolumbar support)">
+                            <option value="S016 เสริมโครงพยุงลำตัว (Jewett Brace)">
+                            <option value="S025 อุปกรณ์พยุงเท้าตกขณะใส่รองเท้า (Foot Sling Econ)">
+                            <option value="S026 อุปกรณ์พยุงเท้าตก (Foot Sling)">
+                            <option value="S029 ปลอกคอแบบช่องเจาะคอ (Collar)">
+                            <option value="S030 ดามกันปลายเท้าตกแบบปรับองศา (AFO Gait Assist)">
+                            <option value="S031 ดามกันปลายเท้าตกแบบบุนุ่ม (AFO Underpad)">
+                            <option value="S042 อุปกรณ์พยุงกระดูกหลังหัก (Chair Brace)">
+                            <option value="S049 อุปกรณ์พยุงไหปลาร้า (Clavicle Splint)">
+                            <option value="S023 ดามกันเท้าตก (AFO 90)">
+                            <option value="S067 อุปกรณ์พยุงคอ (Somi Brace )">
+                            <option value="OT046 โต๊ะฝึกการทรงตัวเด็ก">
+                            <option value="S085 รองเท้าเฝือกลมแบบสั้น (air cast)">
+                            <option value="S079 รองเท้าเฝือกลมแบบยาว (air cast)">
+                            <option value="S022 ผ้ายืดรัดข้อเท้า">
+                            <option value="S090 ถุงน่องหลังผ่าตัดเส้นเลือดขอด">
+                            <option value="S019 ผ้ายืดลดเข่า (Knee Support)">
+                            <option value="S018 อุปกรณ์พยุงข้อเข่าและสะบ้าแบบมีแกน (Open Patella Flexible Bars)">
+                            <option value="S017 อุปกรณ์พยุงเข่าปรับองศาได้ แบบยาว/สั้น (Hinge Knee Support)">
+                        </datalist>
+                    </div>
+                </div>
+
+                <!-- Image Slider Section -->
+                <div id="image-slider-section" class="mt-6 hidden">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3 text-center">ตัวอย่างอุปกรณ์</h3>
+
+                    <!-- Image Type Toggle Buttons -->
+                    <div class="flex justify-center mb-4">
+                        <div class="bg-gray-200 rounded-lg p-1 flex">
+                            <button id="product-btn"
+                                class="px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 text-white"
+                                style="background-color: #B494D4;">
+                                ภาพตัวอย่างสินค้า
+                            </button>
+                            <button id="measurement-btn"
+                                class="px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 bg-white text-gray-600 hover:bg-gray-100">
+                                ภาพตัวอย่างวิธีการวัด
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="relative bg-white rounded-lg shadow-lg overflow-hidden">
+                        <!-- Slider Container -->
+                        <div id="slider-container" class="relative h-80 overflow-hidden rounded-lg">
+                            <!-- Images will be dynamically inserted here -->
+                        </div>
+
+                        <!-- Navigation Arrows -->
+                        <button id="prev-btn"
+                            class="absolute left-3 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 text-gray-700 rounded-full w-10 h-10 flex items-center justify-center hover:bg-opacity-100 transition-all duration-200 shadow-lg border border-gray-200">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                        </button>
+                        <button id="next-btn"
+                            class="absolute right-3 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 text-gray-700 rounded-full w-10 h-10 flex items-center justify-center hover:bg-opacity-100 transition-all duration-200 shadow-lg border border-gray-200">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                        </button>
+
+                        <!-- Dots Indicator -->
+                        <div id="dots-container" class="flex justify-center space-x-2 p-4 bg-gray-50 rounded-b-lg">
+                            <!-- Dots will be dynamically inserted here -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Input Fields Card -->
+                <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 mb-6 border border-green-100">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-ruler text-green-600 mr-3"></i>
+                        <h4 class="text-lg font-semibold text-gray-800">กรอกข้อมูลการวัด</h4>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Input for Height (cm) -->
+                        <div id="height-input-group" class="space-y-2">
+                            <label for="heightCm" id="height-label" class="block text-sm font-medium text-gray-700">
+                                <i class="fas fa-user text-gray-500 mr-2"></i>ส่วนสูง (เซนติเมตร)
+                            </label>
+                            <input type="number" id="heightCm" oninput="calculateSize();" placeholder="กรอกส่วนสูง"
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ease-in-out hover:border-purple-300 bg-white shadow-sm disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
+                                disabled>
+                        </div>
+
+                        <!-- Input for Size (cm) -->
+                        <div id="size-cm-input-group" class="space-y-2">
+                            <label for="sizeCm" id="size-cm-label" class="block text-sm font-medium text-gray-700">
+                                <i class="fas fa-ruler-horizontal text-gray-500 mr-2"></i>รอบต้นแขน (เซนติเมตร)
+                            </label>
+                            <input type="number" id="sizeCm" oninput="calculateSize();" placeholder="กรอกรอบต้นแขน"
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ease-in-out hover:border-purple-300 bg-white shadow-sm disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
+                                disabled>
+                        </div>
+
+                        <!-- Input for Size (inch) -->
+                        <div id="size-inch-input-group" class="space-y-2">
+                            <label for="sizeInch" id="size-inch-label" class="block text-sm font-medium text-gray-700">
+                                <i class="fas fa-ruler-vertical text-gray-500 mr-2"></i>รอบต้นแขน (นิ้ว)
+                            </label>
+                            <input type="number" id="sizeInch" oninput="calculateSize();" placeholder="กรอกรอบต้นแขน"
+                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ease-in-out hover:border-purple-300 bg-white shadow-sm disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
+                                disabled>
+                        </div>
+                    </div>
+                </div>
+                <!-- Result display section -->
+                <div class="custom-purple-light rounded-xl p-6 border custom-purple-border">
+                    <div class="flex items-center justify-center mb-4">
+                        <i class="fas fa-chart-line custom-purple-text mr-3"></i>
+                        <h3 class="text-xl font-semibold text-gray-800">ไซส์ที่แนะนำ</h3>
+                    </div>
+                    <div id="result" class="space-y-4">
+                        <div class="bg-white rounded-lg p-6 shadow-sm border custom-purple-border">
+                            <div class="text-center">
+                                <div class="text-4xl font-bold text-gray-400 mb-2">-</div>
+                                <p class="text-gray-500">กรุณาเลือกอุปกรณ์และกรอกข้อมูลเพื่อดูผลลัพธ์</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-purple-700 to-indigo-800 text-white py-12 mt-20">
+        <div class="container mx-auto px-6 grid md:grid-cols-3 gap-12">
+            <!-- Brand -->
+            <div>
+                <div class="flex items-center mb-4">
+                    <img>
+                    <h3 class="text-2xl font-bold">1st Physio Clinic</h3>
+                </div>
+                <p class="text-purple-100 leading-relaxed">
+                    คลินิคกายภาพบำบัดและอุปกรณ์เพื่อสุขภาพ มุ่งมั่นให้บริการคุณภาพ
+                    พร้อมคำปรึกษาจากนักกายภาพบำบัดมืออาชีพ
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h4 class="text-lg font-semibold mb-4">เมนูด่วน</h4>
+                <ul class="space-y-2 text-purple-100">
+                    <li><a href="#" class="hover:text-white transition">หน้าหลัก</a></li>
+                    <li><a href="#products" class="hover:text-white transition">สินค้า</a></li>
+                    <li><a href="#contact" class="hover:text-white transition">ติดต่อ</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div>
+                <h4 class="text-lg font-semibold mb-4">ติดต่อเรา</h4>
+                <p class="text-purple-100 mb-2"><i class="fas fa-map-marker-alt mr-2"></i>4 กายภาพบำบัด เฟิร์สฟิสิโอ
+                    (ราชบุรี 18 ม.9 ตำบล หนองโพ อำเภอโพธาราม ราชบุรี 70120)</p>
+                <p class="text-purple-100 mb-2"><i class="fas fa-phone mr-2"></i>094-995-2614,085-264-4994</p>
+                <p class="text-purple-100 mb-4"><i class="fas fa-envelope mr-2"></i>firstoffice65@gmail.com</p>
+                <div class="flex space-x-4">
+                    <a href="http://facebook.com/Firstphysioshop-592681207479422/"
+                        class="w-10 h-10 flex items-center justify-center bg-white text-purple-700 rounded-full hover:bg-purple-100 transition"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://page.line.me/firstphysio?openQrModal=true"
+                        class="w-10 h-10 flex items-center justify-center bg-white text-purple-700 rounded-full hover:bg-purple-100 transition"><i
+                            class="fab fa-line"></i></a>
+                    <a href="https://www.instagram.com/first.physio/"
+                        class="w-10 h-10 flex items-center justify-center bg-white text-purple-700 rounded-full hover:bg-purple-100 transition"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@first.physio"
+                        class="w-10 h-10 flex items-center justify-center bg-white text-purple-700 rounded-full hover:bg-purple-100 transition"><i
+                            class="fab fa-tiktok"></i></a>
+                    <a href="https://www.youtube.com/channel/UCGoB1ltKBKqf_my3L9fnz-g"
+                        class="w-10 h-10 flex items-center justify-center bg-white text-purple-700 rounded-full hover:bg-purple-100 transition"><i
+                            class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="border-t border-purple-600 mt-12 pt-6 text-center text-purple-200 text-sm">
+            © 2025 ลิขสิทธิ์เป็นของบริษัทเฟิร์สฟิสิโอ จำกัด.
+        </div>
+    </footer>
+
+    <script>
+        // Google Apps Script URL removed
+
+        // Image data for each device - organized by product and measurement images
+        const deviceImages = {
+            'OT196 ไม้ค้ำยัน (Crutches)': {
+                product: [
+                    'images/OT196.jpg'
+                ],
+                measurement: [
+                    'images/OT196.jpg'
+                ]
+            },
+            'S001 เฝือกอ่อนพยุงคอ (Soft collar)': {
+                product: [
+                    'images/S001.png',
+                ],
+                measurement: [
+                    'images/รอบคอ.jpg',
+                ]
+            },
+            'S004 อุปกรณ์พยุงข้อไหล่หลวม (Bobath sling)': {
+                product: [
+                    'images/S004.jpg',
+                ],
+                measurement: [
+                    'images/รอบต้นแขน.jpg'
+                ]
+            },
+            'S006 อุปกรณ์พยุงแขน (Arm sling)': {
+                product: [
+                    'images/S006.jpg',
+                ],
+                measurement: [
+                    'images/ความยาวท่อนแขนล่างจากปลายนิ้วก้อยถึงข้อศอก.jpg'
+                ]
+            },
+            'S008 อุปกรณ์พยุงข้อศอก (Tennis and Golf Elbow)': {
+                product: [
+                    'images/S008.jpg',
+                ],
+                measurement: [
+                    'images/รอบข้อศอก.jpg'
+                ]
+            },
+            'S010 ประคองนิ้วหัวแม่มือ (Thumb Support)': {
+                product: [
+                    'images/S010.jpg',
+                ],
+                measurement: [
+                    'images/รอบข้อมือ.jpg'
+                ]
+            },
+            'S013 อุปกรณ์พยุงหลังแบบถอดสายได้ (Back support)': {
+                product: [
+                    'images/S013.jpg',
+                ],
+                measurement: [
+                    'images/รอบสะโพก.jpg'
+                ]
+            },
+            'S014 อุปกรณ์พยุงหลังและสะโพก (Lumbar support)': {
+                product: [
+                    'images/S014.jpg',
+                ],
+                measurement: [
+                    'images/รอบสะโพก.jpg'
+                ]
+            },
+            'S015 เสื้อพยุงหลังค่อม (thoracolumbar support)': {
+                product: [
+                    'images/S015.jpg',
+                ],
+                measurement: [
+                    'images/รอบสะโพก.jpg'
+                ]
+            },
+            'S016 เสริมโครงพยุงลำตัว (Jewett Brace)': {
+                product: [
+                    'images/S016.jpg',
+                ],
+                measurement: [
+                    'images/วัดรอบใต้ราวนม.jpg'
+                ]
+            },
+            'S025 อุปกรณ์พยุงเท้าตกขณะใส่รองเท้า (Foot Sling Econ)': {
+                product: [
+                    'images/S025.jpg',
+                ],
+                measurement: [
+                    'images/รอบน่อง.jpg'
+                ]
+            },
+            'S026 อุปกรณ์พยุงเท้าตก (Foot Sling)': {
+                product: [
+                    'images/S026.jpg',
+                ],
+                measurement: [
+                    'images/รอบน่อง.jpg'
+                ]
+            },
+            'S029 ปลอกคอแบบช่องเจาะคอ (Collar)': {
+                product: [
+                    'images/S029.jpg',
+                ],
+                measurement: [
+                    'images/รอบคอ.jpg'
+                ]
+            },
+            'S030 ดามกันปลายเท้าตกแบบปรับองศา (AFO Gait Assist)': {
+                product: [
+                    'images/S030.jpg',
+                ],
+                measurement: [
+                    'images/ความยาวเท้า.jpg'
+                ]
+            },
+            'S031 ดามกันปลายเท้าตกแบบบุนุ่ม (AFO Underpad)': {
+                product: [
+                    'images/S031.jpg',
+                ],
+                measurement: [
+                    'images/ความยาวเท้า.jpg'
+                ]
+            },
+            'S042 อุปกรณ์พยุงกระดูกหลังหัก (Chair Brace)': {
+                product: [
+                    'images/S042.jpg',
+                ],
+                measurement: [
+                    'images/รอบเอว.jpg'
+                ]
+            },
+            'S049 อุปกรณ์พยุงไหปลาร้า (Clavicle Splint)': {
+                product: [
+                    'images/S049.jpg',
+                ],
+                measurement: [
+                    'images/วัดรอบใต้ราวนม.jpg'
+                ]
+            },
+            'S023 ดามกันเท้าตก (AFO 90)': {
+                product: [
+                    'images/S023.jpg',
+                ],
+                measurement: [
+                    'images/S023.jpg'
+                ]
+            },
+            'S067 อุปกรณ์พยุงคอ (Somi Brace )': {
+                product: [
+                    'images/S067.jpg',
+                ],
+                measurement: [
+                    'images/รอบคอ.jpg'
+                ]
+            },
+            'OT046 โต๊ะฝึกการทรงตัวเด็ก': {
+                product: [
+                    'images/OT046.1.jpg',
+                ],
+                measurement: [
+                    'images/OT046.1.jpg'
+                ]
+            },
+            'S085 รองเท้าเฝือกลมแบบสั้น (air cast)': {
+                product: [
+                    'images/S085.jpg',
+                ],
+                measurement: [
+                    'images/ความยาวเท้า.jpg'
+                ]
+            },
+            'S079 รองเท้าเฝือกลมแบบยาว (air cast)': {
+                product: [
+                    'images/S079.jpg',
+                ],
+                measurement: [
+                    'images/ความยาวเท้าและความสูง.jpg'
+                ]
+            },
+            'S022 ผ้ายืดรัดข้อเท้า': {
+                product: [
+                    'images/S022.jpg',
+                ],
+                measurement: [
+                    'images/รอบข้อเท้า.jpg'
+                ]
+            },
+            'S090 ถุงน่องหลังผ่าตัดเส้นเลือดขอด': {
+                product: [
+                    'images/S090.jpg',
+                ],
+                measurement: [
+                    'images/รอบน่อง.jpg'
+                ]
+            },
+            'S019 ผ้ายืดลดเข่า (Knee Support)': {
+                product: [
+                    'images/S019.jpg',
+                ],
+                measurement: [
+                    'images/รอบหัวเข่า.jpg'
+                ]
+            },
+            'S018 อุปกรณ์พยุงข้อเข่าและสะบ้าแบบมีแกน (Open Patella Flexible Bars)': {
+                product: [
+                    'images/S018.jpg',
+                ],
+                measurement: [
+                    'images/รอบหัวเข่า.jpg'
+                ]
+            },
+            'S017 อุปกรณ์พยุงเข่าปรับองศาได้ แบบยาว/สั้น (Hinge Knee Support)': {
+                product: [
+                    'images/S017.jpg',
+                ],
+                measurement: [
+                    'images/รอบหัวเข่า.jpg'
+                ]
+            }
+        };
+
+        // Slider variables
+        let currentSlide = 0;
+        let currentImages = [];
+        let currentImageType = 'product'; // 'product' or 'measurement'
+        let currentDeviceName = '';
+
+        // Excel data variables
+        let uploadedExcelData = null;
+        let deviceDataFromExcel = {};
+
+        // Auto load variables
+        let autoLoadEnabled = false;
+        let autoLoadInterval = null;
+
+        // Usage statistics removed
+
+        const measurementLabels = {
+            'OT196 ไม้ค้ำยัน (Crutches)': 'ความสูง (cm)',
+            'S001 เฝือกอ่อนพยุงคอ (Soft collar)': 'รอบคอ (cm)',
+            'S004 อุปกรณ์พยุงข้อไหล่หลวม (Bobath sling)': 'รอบต้นแขน (cm)',
+            'S006 อุปกรณ์พยุงแขน (Arm sling)': 'ความยาวท่อนแขนล่างจากปลายนิ้วก้อยถึงข้อศอก (cm)',
+            'S008 อุปกรณ์พยุงข้อศอก (Tennis and Golf Elbow)': 'รอบข้อศอก (cm)',
+            'S010 ประคองนิ้วหัวแม่มือ (Thumb Support)': 'รอบข้อมือ (cm)',
+            'S013 อุปกรณ์พยุงหลังแบบถอดสายได้ (Back support)': 'รอบสะโพก (cm)',
+            'S014 อุปกรณ์พยุงหลังและสะโพก (Lumbar support)': 'รอบสะโพก (cm)',
+            'S015 เสื้อพยุงหลังค่อม (thoracolumbar support)': 'รอบสะโพก (cm)',
+            'S016 เสริมโครงพยุงลำตัว (Jewett Brace)': 'วัดรอบใต้ราวนม (cm)',
+            'S025 อุปกรณ์พยุงเท้าตกขณะใส่รองเท้า (Foot Sling Econ)': 'รอบน่อง (cm)',
+            'S026 อุปกรณ์พยุงเท้าตก (Foot Sling)': 'รอบน่อง (cm)',
+            'S029 ปลอกคอแบบช่องเจาะคอ (Collar)': 'รอบคอ (cm)',
+            'S030 ดามกันปลายเท้าตกแบบปรับองศา (AFO Gait Assist)': 'ความยาวเท้า (cm)',
+            'S031 ดามกันปลายเท้าตกแบบบุนุ่ม (AFO Underpad)': 'ความยาวเท้า (cm)',
+            'S042 อุปกรณ์พยุงกระดูกหลังหัก (Chair Brace)': 'รอบเอว (cm)',
+            'S049 อุปกรณ์พยุงไหปลาร้า (Clavicle Splint)': 'วัดรอบใต้ราวนม (cm)',
+            'S023 ดามกันเท้าตก (AFO 90)': 'ความยาวเท้า (cm)',
+            'S067 อุปกรณ์พยุงคอ (Somi Brace)': 'รอบคอ (cm)',
+            'OT046 โต๊ะฝึกการทรงตัวเด็ก': 'ความสูง (cm)',
+            'S085 รองเท้าเฝือกลมแบบสั้น (air cast)': 'ความยาวเท้า (cm)',
+            'S079 รองเท้าเฝือกลมแบบยาว (air cast)': 'ความยาวเท้าและความสูง (cm)',
+            'S022ผ้ายืดรัดข้อเท้า': 'รอบข้อเท้า (cm)',
+            'S090ถุงน่องหลังผ่าตัดเส้นเลือดขอด': 'รอบน่อง (cm)',
+            'S019 ผ้ายืดลดเข่า (Knee Support)': 'รอบหัวเข่า (cm)',
+            'S018 อุปกรณ์พยุงข้อเข่าและสะบ้าแบบมีแกน (Open Patella Flexible Bars)': 'รอบหัวเข่า (cm)',
+            'S017 อุปกรณ์พยุงเข่าปรับองศาได้ แบบยาว/สั้น (Hinge Knee Support)': 'รอบหัวเข่า (cm)',
+        };
+
+        // Data mapping from the updated device information with both cm and inch
+        const deviceData = {
+            'OT196 ไม้ค้ำยัน (Crutches)': [
+                { size: '34', cm: { min: 0, max: 131 }, inch: { min: 0, max: 51.6 } },
+                { size: '36', cm: { min: 132, max: 136 }, inch: { min: 51.6, max: 53.5 } },
+                { size: '38', cm: { min: 137, max: 141 }, inch: { min: 53.5, max: 55.5 } },
+                { size: '40', cm: { min: 142, max: 146 }, inch: { min: 55.5, max: 57.5 } },
+                { size: '42', cm: { min: 147, max: 151 }, inch: { min: 57.5, max: 59.4 } },
+                { size: '44', cm: { min: 152, max: 156 }, inch: { min: 59.4, max: 61.4 } },
+                { size: '46', cm: { min: 157, max: 161 }, inch: { min: 61.4, max: 63.4 } },
+                { size: '48', cm: { min: 162, max: 166 }, inch: { min: 63.4, max: 65.4 } },
+                { size: '50', cm: { min: 167, max: 171 }, inch: { min: 65.4, max: 67.3 } },
+                { size: '52', cm: { min: 172, max: 176 }, inch: { min: 67.3, max: 69.3 } },
+                { size: '54', cm: { min: 177, max: 181 }, inch: { min: 69.3, max: 71.3 } },
+                { size: '56', cm: { min: 182, max: 200 }, inch: { min: 71.3, max: 999 } }
+            ],
+            'S001 เฝือกอ่อนพยุงคอ (Soft collar)': [
+                { size: 'S', cm: { min: 38, max: 40 }, inch: { min: 15, max: 15.7 } },
+                { size: 'M', cm: { min: 41, max: 44 }, inch: { min: 16.1, max: 17.3 } },
+                { size: 'L', cm: { min: 45, max: 52 }, inch: { min: 17.7, max: 20.5 } }
+            ],
+            'S004 อุปกรณ์พยุงข้อไหล่หลวม (Bobath sling)': [
+                { size: 'S', cm: { min: 24, max: 27 }, inch: { min: 9.4, max: 10.6 } },
+                { size: 'M', cm: { min: 28, max: 31 }, inch: { min: 11, max: 12.2 } },
+                { size: 'L', cm: { min: 32, max: 35 }, inch: { min: 12.6, max: 13.8 } },
+                { size: 'XL', cm: { min: 36, max: 40 }, inch: { min: 14.2, max: 15.7 } }
+            ],
+            'S006 อุปกรณ์พยุงแขน (Arm sling)': [
+                { size: 'S', cm: { min: 34, max: 37 }, inch: { min: 13.4, max: 14.6 } },
+                { size: 'M', cm: { min: 38, max: 41 }, inch: { min: 15, max: 16.1 } },
+                { size: 'L', cm: { min: 42, max: 45 }, inch: { min: 16.5, max: 17.7 } },
+                { size: 'XL', cm: { min: 46, max: 50 }, inch: { min: 18.1, max: 19.7 } }
+            ],
+            'S008 อุปกรณ์พยุงข้อศอก (Tennis and Golf Elbow)': [
+                { size: 'Free Size', cm: { min: 17.8, max: 33 }, inch: { min: 7, max: 13 } }
+            ],
+            'S010 ประคองนิ้วหัวแม่มือ (Thumb Support)': [
+                { size: 'S', cm: { min: 14, max: 16 }, inch: { min: 5.5, max: 6.3 } },
+                { size: 'M', cm: { min: 16, max: 19 }, inch: { min: 6.3, max: 7.5 } },
+                { size: 'L', cm: { min: 19, max: 21 }, inch: { min: 7.5, max: 8.3 } },
+                { size: 'XL', cm: { min: 21, max: 24 }, inch: { min: 8.3, max: 9.4 } }
+            ],
+            'S013 อุปกรณ์พยุงหลังแบบถอดสายได้ (Back support)': [
+                { size: 'S', cm: { min: 71, max: 81 }, inch: { min: 28, max: 32 } },
+                { size: 'M', cm: { min: 81, max: 91 }, inch: { min: 32, max: 36 } },
+                { size: 'L', cm: { min: 91, max: 101 }, inch: { min: 36, max: 40 } },
+                { size: 'XL', cm: { min: 101, max: 111 }, inch: { min: 40, max: 44 } },
+                { size: 'XXL', cm: { min: 111, max: 122 }, inch: { min: 44, max: 48 } },
+                { size: 'XXXL', cm: { min: 122, max: 132 }, inch: { min: 48, max: 52 } }
+            ],
+            'S014 อุปกรณ์พยุงหลังและสะโพก (Lumbar support)': [
+                { size: 'S', cm: { min: 71, max: 81 }, inch: { min: 28, max: 32 } },
+                { size: 'M', cm: { min: 81, max: 91 }, inch: { min: 32, max: 36 } },
+                { size: 'L', cm: { min: 91, max: 101 }, inch: { min: 36, max: 40 } },
+                { size: 'XL', cm: { min: 101, max: 111 }, inch: { min: 40, max: 44 } },
+                { size: 'XXL', cm: { min: 111, max: 122 }, inch: { min: 44, max: 48 } }
+            ],
+            'S015 เสื้อพยุงหลังค่อม (thoracolumbar support)': [
+                { size: 'S', cm: { min: 71, max: 81 }, inch: { min: 28, max: 32 } },
+                { size: 'M', cm: { min: 81, max: 91 }, inch: { min: 32, max: 36 } },
+                { size: 'L', cm: { min: 91, max: 101 }, inch: { min: 36, max: 40 } },
+                { size: 'XL', cm: { min: 101, max: 111 }, inch: { min: 40, max: 44 } }
+            ],
+            'S016 อุปกรณ์พยุงเท้าตกขณะใส่รองเท้า (Foot Sling Econ)': [
+                { size: 'Free Size', cm: { min: 26, max: 45 }, inch: { min: 10.2, max: 17.7 } }
+            ],
+            'S025 อุปกรณ์พยุงเท้าตก (Foot Sling)': [
+                { size: 'S', cm: { min: 23, max: 29 }, inch: { min: 9, max: 11.4 } },
+                { size: 'M', cm: { min: 29, max: 35 }, inch: { min: 11.4, max: 13.7 } },
+                { size: 'L', cm: { min: 35, max: 42 }, inch: { min: 13.7, max: 16.5 } }
+            ],
+            'S026 ปลอกคอแบบช่องเจาะคอ (Collar)': [
+                { size: 'S', cm: { min: 38, max: 41 }, inch: { min: 15, max: 16 } },
+                { size: 'M', cm: { min: 41, max: 45 }, inch: { min: 16, max: 18 } },
+                { size: 'L', cm: { min: 45, max: 52 }, inch: { min: 18, max: 20 } }
+            ],
+            'S029 ดามกันปลายเท้าตกแบบปรับองศา (AFO Gait Assist)': [
+                { size: 'S', cm: { min: 20, max: 22.99 }, inch: { min: 7.9, max: 9.1 } },
+                { size: 'M', cm: { min: 23, max: 24.99 }, inch: { min: 9.1, max: 9.8 } },
+                { size: 'L', cm: { min: 25, max: 26.99 }, inch: { min: 9.8, max: 10.6 } },
+                { size: 'XL', cm: { min: 27, max: 29 }, inch: { min: 10.6, max: 11.4 } }
+            ],
+            'S030 ดามกันปลายเท้าตกแบบบุนุ่ม (AFO Underpad) ': [
+                { size: 'S', cm: { min: 20, max: 22.99 }, inch: { min: 7.9, max: 9.1 } },
+                { size: 'M', cm: { min: 23, max: 24.99 }, inch: { min: 9.1, max: 9.8 } },
+                { size: 'L', cm: { min: 25, max: 26.99 }, inch: { min: 9.8, max: 10.6 } },
+                { size: 'XL', cm: { min: 27, max: 29 }, inch: { min: 10.6, max: 11.4 } }
+            ],
+            'S031 อุปกรณ์พยุงกระดูกหลังหัก (Chair Brace)': [
+                { size: 'S', cm: { min: 42, max: 47 }, inch: { min: 16.5, max: 18.5 } },
+                { size: 'M', cm: { min: 47, max: 52 }, inch: { min: 18.6, max: 20.5 } },
+                { size: 'L', cm: { min: 55, max: 57 }, inch: { min: 21.5, max: 22.5 } },
+                { size: 'XL', cm: { min: 60, max: 62 }, inch: { min: 23.5, max: 24.5 } }
+            ],
+            'S042 อุปกรณ์พยุงไหปลาร้า (Clavicle Splint)': [
+                { size: 'SS', cm: { min: 56, max: 66 }, inch: { min: 22, max: 26 } },
+                { size: 'S', cm: { min: 69, max: 76 }, inch: { min: 27, max: 30 } },
+                { size: 'M', cm: { min: 79, max: 84 }, inch: { min: 31, max: 33 } },
+                { size: 'L', cm: { min: 86, max: 94 }, inch: { min: 34, max: 37 } },
+                { size: 'XL', cm: { min: 97, max: 107 }, inch: { min: 38, max: 42 } },
+            ],
+            'S049 อุปกรณ์พยุงคอ (Somi Brace)': [
+                { size: 'S', cm: { min: 20, max: 28 }, inch: { min: 8, max: 11 } },
+                { size: 'M', cm: { min: 30, max: 36 }, inch: { min: 12, max: 14 } },
+                { size: 'L', cm: { min: 38, max: 43 }, inch: { min: 15, max: 17 } },
+                { size: 'XL', cm: { min: 46, max: 51 }, inch: { min: 18, max: 20 } },
+            ],
+            'S023 โต๊ะฝึกการทรงตัวเด็ก': [
+                { size: 'เล็ก', cm: { min: 90, max: 100.99 }, inch: { min: 35.4, max: 39.8 } },
+                { size: 'กลาง', cm: { min: 101, max: 120 }, inch: { min: 39.8, max: 47.2 } },
+                { size: 'ใหญ่', cm: { min: 120, max: 130 }, inch: { min: 47.2, max: 51.2 } }
+            ],
+            'S067 รองเท้าเฝือกลมแบบสั้น (air cast)': [
+                { size: 'S', cm: { min: 20, max: 23 }, inch: { min: 7.9, max: 9.1 } },
+                { size: 'M', cm: { min: 24, max: 26 }, inch: { min: 9.4, max: 10.2 } },
+                { size: 'L', cm: { min: 27, max: 31 }, inch: { min: 10.6, max: 12.2 } }
+            ],
+            'OT046 องเท้าเฝือกลมแบบยาว (air cast)': [
+                { size: 'S', cm: { min: 20, max: 23 }, inch: { min: 7.9, max: 9.1 } },
+                { size: 'M', cm: { min: 24, max: 26 }, inch: { min: 9.4, max: 10.2 } },
+                { size: 'L', cm: { min: 27, max: 31 }, inch: { min: 10.6, max: 12.2 } }
+            ],
+            'S085 ผ้ายืดรัดข้อเท้า': [
+                { size: 'S', cm: { min: 18, max: 20 }, inch: { min: 7, max: 7.99 } },
+                { size: 'M', cm: { min: 20, max: 23 }, inch: { min: 8, max: 8.99 } },
+                { size: 'L', cm: { min: 23, max: 25 }, inch: { min: 9, max: 9.99 } },
+                { size: 'XL', cm: { min: 25, max: 28 }, inch: { min: 10, max: 10.99 } },
+                { size: 'XXL', cm: { min: 28, max: 30 }, inch: { min: 11, max: 12 } }
+            ],
+            'S079 อุปกรณ์พยุงข้อเข่าและสะบ้าแบบมีแกน (Open Patella Flexible Bars)': [
+                { size: 'S', cm: { min: 28, max: 31.99 }, inch: { min: 11, max: 12.6 } },
+                { size: 'M', cm: { min: 32, max: 35.99 }, inch: { min: 12.6, max: 14.2 } },
+                { size: 'L', cm: { min: 36, max: 39.99 }, inch: { min: 14.2, max: 15.7 } },
+                { size: 'XL', cm: { min: 40, max: 43.99 }, inch: { min: 15.7, max: 17.3 } },
+                { size: 'XXL', cm: { min: 44, max: 48 }, inch: { min: 17.3, max: 18.9 } }
+            ],
+            'S022 อุปกรณ์พยุงเข่าปรับองศาได้ แบบยาว/สั้น (Hinge Knee Support)': [
+                { size: 'S', cm: { min: 26.7, max: 31.7 }, inch: { min: 10, max: 12.5 } },
+                { size: 'M', cm: { min: 31.8, max: 36.8 }, inch: { min: 12.6, max: 14.5 } },
+                { size: 'L', cm: { min: 36.9, max: 41.9 }, inch: { min: 14.6, max: 16.5 } },
+                { size: 'XL', cm: { min: 42, max: 47 }, inch: { min: 16.6, max: 18.5 } }
+            ],
+            'S090 ดามกันเท้าตก (AFO 90)': [
+                { size: 'S', cm: { min: 20, max: 23 }, inch: { min: 7.9, max: 9.1 } },
+                { size: 'M', cm: { min: 24, max: 28 }, inch: { min: 9.4, max: 11 } },
+                { size: 'L', cm: { min: 29, max: 33 }, inch: { min: 11.4, max: 13 } },
+                { size: 'XL', cm: { min: 34, max: 38 }, inch: { min: 13.4, max: 15 } }
+            ],
+            'S019 ถุงน่องหลังผ่าตัดเส้นเลือดขอด': [
+                { size: 'S', cm: { min: 23, max: 29 }, inch: { min: 9, max: 11.4 } },
+                { size: 'M', cm: { min: 29, max: 35 }, inch: { min: 11.4, max: 13.7 } },
+                { size: 'L', cm: { min: 35, max: 42 }, inch: { min: 13.7, max: 16.5 } },
+                { size: 'XL', cm: { min: 42, max: 48 }, inch: { min: 16.5, max: 18.9 } }
+            ],
+            'S018 เสริมโครงพยุงลำตัว (Jewett Brace)': [
+                { size: 'S', cm: { min: 71, max: 81 }, inch: { min: 28, max: 32 } },
+                { size: 'M', cm: { min: 81, max: 91 }, inch: { min: 32, max: 36 } },
+                { size: 'L', cm: { min: 91, max: 101 }, inch: { min: 36, max: 40 } },
+                { size: 'XL', cm: { min: 101, max: 111 }, inch: { min: 40, max: 44 } }
+            ],
+            'S017 ผ้ายืดลดเข่า (Knee Support)': [
+                { size: 'S', cm: { min: 28, max: 32 }, inch: { min: 11, max: 12.6 } },
+                { size: 'M', cm: { min: 32, max: 36 }, inch: { min: 12.6, max: 14.2 } },
+                { size: 'L', cm: { min: 36, max: 40 }, inch: { min: 14.2, max: 15.7 } },
+                { size: 'XL', cm: { min: 40, max: 44 }, inch: { min: 15.7, max: 17.3 } }
+            ]
+        };
+
+        // Slider functions
+        function showImageSlider(deviceName) {
+            const sliderSection = document.getElementById('image-slider-section');
+
+            if (deviceImages[deviceName]) {
+                currentDeviceName = deviceName;
+                currentImageType = 'product'; // Reset to product images
+
+                // Show slider section
+                sliderSection.classList.remove('hidden');
+                sliderSection.classList.add('fade-in');
+
+                // Update toggle buttons
+                updateToggleButtons();
+
+                // Load images for current type
+                loadImagesForCurrentType();
+            } else {
+                sliderSection.classList.add('hidden');
+            }
+        }
+
+        function loadImagesForCurrentType() {
+            const sliderContainer = document.getElementById('slider-container');
+            const dotsContainer = document.getElementById('dots-container');
+
+            if (!currentDeviceName || !deviceImages[currentDeviceName]) return;
+
+            currentImages = deviceImages[currentDeviceName][currentImageType] || [];
+            currentSlide = 0;
+
+            // Create images
+            sliderContainer.innerHTML = '';
+            currentImages.forEach((imageUrl, index) => {
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                img.alt = `${currentDeviceName} - ${currentImageType === 'product' ? 'รูปสินค้า' : 'รูปการวัด'} ${index + 1}`;
+                img.className = `slider-image absolute inset-0 transition-opacity duration-500 ${index === 0 ? 'opacity-100' : 'opacity-0'}`;
+                img.onerror = function () {
+                    // Fallback image if the specified image doesn't exist
+                    this.src = `data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xNzUgMTI1SDIyNVYxNzVIMTc1VjEyNVoiIGZpbGw9IiNEMUQ1REIiLz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSIxODgiIHk9IjEzOCI+CjxwYXRoIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMlM2LjQ4IDIyIDEyIDIyIDIyIDE3LjUyIDIyIDEyUzE3LjUyIDIgMTIgMlpNMTMgMTdIMTFWMTVIMTNWMTdaTTEzIDEzSDExVjdIMTNWMTNaIiBmaWxsPSIjOUNBM0FGIi8+Cjwvc3ZnPgo8L3N2Zz4K`;
+                };
+
+                // Add loading state
+                img.onload = function () {
+                    this.style.opacity = '1';
+                };
+
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.3s ease';
+                sliderContainer.appendChild(img);
+            });
+
+            // Create dots
+            dotsContainer.innerHTML = '';
+            currentImages.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.className = `dot ${index === 0 ? 'active' : ''}`;
+                dot.addEventListener('click', () => goToSlide(index, true));
+                dotsContainer.appendChild(dot);
+            });
+
+            // Update navigation buttons
+            updateNavigationButtons();
+
+            // Preload images for better performance
+            preloadImages(currentImages);
+
+            // Auto load disabled
+        }
+
+        function updateToggleButtons() {
+            const productBtn = document.getElementById('product-btn');
+            const measurementBtn = document.getElementById('measurement-btn');
+
+            if (currentImageType === 'product') {
+                // ปุ่มที่เลือก - สีม่วง
+                productBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 text-white';
+                productBtn.style.backgroundColor = '#64349A';
+                // ปุ่มที่ไม่ได้เลือก - สีขาว
+                measurementBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 bg-white text-gray-600 hover:bg-gray-100';
+                measurementBtn.style.backgroundColor = '';
+            } else {
+                // ปุ่มที่เลือก - สีม่วง
+                measurementBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 text-white';
+                measurementBtn.style.backgroundColor = '#64349A';
+                // ปุ่มที่ไม่ได้เลือก - สีขาว
+                productBtn.className = 'px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 bg-white text-gray-600 hover:bg-gray-100';
+                productBtn.style.backgroundColor = '';
+            }
+        }
+
+        function switchImageType(type) {
+            currentImageType = type;
+            updateToggleButtons();
+            loadImagesForCurrentType();
+        }
+
+        // Auto load functions removed
+
+        function preloadImages(imageUrls) {
+            imageUrls.forEach(url => {
+                const img = new Image();
+                img.src = url;
+            });
+        }
+
+        // Excel file processing functions
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+
+                    // Process the workbook
+                    processExcelWorkbook(workbook);
+                } catch (error) {
+                    console.error('Error reading Excel file:', error);
+                    showUploadStatus('เกิดข้อผิดพลาดในการอ่านไฟล์', false);
+                }
+            };
+
+            reader.readAsArrayBuffer(file);
+        }
+
+        function processExcelWorkbook(workbook) {
+            try {
+                // Get the first worksheet
+                const sheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[sheetName];
+
+                // Convert to JSON
+                const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+                // Process the data
+                const processedData = processExcelData(jsonData);
+
+                if (processedData.length > 0) {
+                    uploadedExcelData = processedData;
+                    deviceDataFromExcel = convertToDeviceData(processedData);
+                    updateDeviceDropdown();
+                    showUploadStatus(`อัปโหลดสำเร็จ - พบข้อมูล ${processedData.length} รายการ`, true);
+                } else {
+                    showUploadStatus('ไม่พบข้อมูลที่ถูกต้องในไฟล์', false);
+                }
+
+            } catch (error) {
+                console.error('Error processing Excel data:', error);
+                showUploadStatus('เกิดข้อผิดพลาดในการประมวลผลข้อมูล', false);
+            }
+        }
+
+        function processExcelData(jsonData) {
+            const processedData = [];
+
+            // Skip header row and process data
+            for (let i = 1; i < jsonData.length; i++) {
+                const row = jsonData[i];
+
+                // Check if row has required data
+                if (row && row.length >= 4) {
+                    const deviceName = row[0];
+                    const size = row[1];
+                    const minCm = parseFloat(row[2]);
+                    const maxCm = parseFloat(row[3]);
+                    const minInch = row[4] ? parseFloat(row[4]) : minCm / 2.54;
+                    const maxInch = row[5] ? parseFloat(row[5]) : maxCm / 2.54;
+
+                    if (deviceName && size && !isNaN(minCm) && !isNaN(maxCm)) {
+                        processedData.push({
+                            deviceName: deviceName.toString().trim(),
+                            size: size.toString().trim(),
+                            cm: { min: minCm, max: maxCm },
+                            inch: { min: minInch, max: maxInch }
+                        });
+                    }
+                }
+            }
+
+            return processedData;
+        }
+
+        function convertToDeviceData(processedData) {
+            const deviceData = {};
+
+            processedData.forEach(item => {
+                if (!deviceData[item.deviceName]) {
+                    deviceData[item.deviceName] = [];
+                }
+
+                deviceData[item.deviceName].push({
+                    size: item.size,
+                    cm: item.cm,
+                    inch: item.inch
+                });
+            });
+
+            return deviceData;
+        }
+
+        function updateDeviceDropdown() {
+            const deviceSelect = document.getElementById('deviceName');
+            const currentValue = deviceSelect.value;
+
+            // Clear existing options except the first one
+            deviceSelect.innerHTML = '<option value="">🔍 เลือกอุปกรณ์ที่ต้องการ</option>';
+
+            // Add devices from Excel data
+            Object.keys(deviceDataFromExcel).forEach(deviceName => {
+                const option = document.createElement('option');
+                option.value = deviceName;
+                option.textContent = `📋 ${deviceName}`;
+                deviceSelect.appendChild(option);
+            });
+
+            // Restore previous selection if it exists
+            if (currentValue && deviceDataFromExcel[currentValue]) {
+                deviceSelect.value = currentValue;
+            }
+        }
+
+        function showUploadStatus(message, isSuccess) {
+            const statusDiv = document.getElementById('upload-status');
+            const messageSpan = document.getElementById('upload-message');
+            const countSpan = document.getElementById('record-count');
+            const clearBtn = document.getElementById('clear-data-btn');
+
+            messageSpan.textContent = message;
+            countSpan.textContent = uploadedExcelData ? `${uploadedExcelData.length} รายการ` : '0 รายการ';
+
+            if (isSuccess) {
+                statusDiv.classList.remove('hidden');
+                clearBtn.classList.remove('hidden');
+            } else {
+                statusDiv.classList.add('hidden');
+                clearBtn.classList.add('hidden');
+            }
+        }
+
+        function clearUploadedData() {
+            uploadedExcelData = null;
+            deviceDataFromExcel = {};
+
+            // Reset device dropdown to default
+            const deviceSelect = document.getElementById('deviceName');
+            deviceSelect.innerHTML = `
+                            <option value="">เลือกอุปกรณ์ที่ต้องการ</option>
+                            <option value="ไม้ค้ำยัน (Crutches)">ไม้ค้ำยัน (Crutches)</option>
+                            <option value="เฝือกอ่อนพยุงคอ (Soft collar)">เฝือกอ่อนพยุงคอ (Soft collar)</option>
+                            <option value="อุปกรณ์พยุงข้อไหล่หลวม (Bobath sling)">อุปกรณ์พยุงข้อไหล่หลวม (Bobath sling)
+                            </option>
+                            <option value="อุปกรณ์พยุงแขน (Arm sling)">อุปกรณ์พยุงแขน (Arm sling)</option>
+                            <option value="อุปกรณ์พยุงข้อศอก (Tennis and Golf Elbow)">อุปกรณ์พยุงข้อศอก (Tennis and Golf
+                                Elbow)</option>
+                            <option value="ประคองนิ้วหัวแม่มือ (Thumb Support)">ประคองนิ้วหัวแม่มือ (Thumb Support)
+                            </option>
+                            <option value="อุปกรณ์พยุงหลังแบบถอดสายได้ (Back support)">พยุงหลังแบบถอดสายได้ (Back
+                                support)</option>
+                            <option value="อุปกรณ์พยุงหลังและสะโพก (Lumbar support)">พยุงหลังและสะโพก (Lumbar support)
+                            </option>
+                            <option value="เสื้อพยุงหลังค่อม (thoracolumbar support)">เสื้อพยุงหลังค่อม (thoracolumbar
+                                support)</option>
+                            <option value="เสริมโครงพยุงลำตัว (Jewett Brace)">เสริมโครงพยุงลำตัว (Jewett Brace)</option>
+                            <option value="อุปกรณ์พยุงเท้าตกขณะใส่รองเท้า (Foot Sling Econ)">พยุงเท้าตกขณะใส่รองเท้า
+                                (Foot Sling Econ)</option>
+                            <option value="อุปกรณ์พยุงเท้าตกขณะใส่รองเท้า (Foot Sling Econ)">พยุงเท้าตก (Foot Sling)
+                            </option>
+                            <option value="ปลอกคอแบบช่องเจาะคอ (Collar)">ปลอกคอแบบช่องเจาะคอ (Collar)</option>
+                            <option value="ดามกันปลายเท้าตกแบบปรับองศา (AFO Gait Assist)">ดามกันปลายเท้าตกแบบปรับองศา
+                                (AFO Gait Assist)</option>
+                            <option value="ดามกันปลายเท้าตกแบบบุนุ่ม (AFO Underpad) ">ดามกันปลายเท้าตกแบบบุนุ่ม (AFO
+                                Underpad)</option>
+                            <option value="พยุงกระดูกหลังหัก (Chair Brace)">พยุงกระดูกหลังหัก (Chair Brace)</option>
+                            <option value="พยุงไหปลาร้า (Clavicle Splint)">พยุงไหปลาร้า (Clavicle Splint)</option>
+                            <option value="ดามกันเท้าตก (AFO 90)">ดามกันเท้าตก (AFO 90)</option>
+                            <option value="พยุงคอ (Somi Brace )">พยุงคอ (Somi Brace)</option>
+                            <option value="โต๊ะฝึกการทรงตัวเด็ก">โต๊ะฝึกการทรงตัวเด็ก</option>
+                            <option value="รองเท้าเฝือกลมแบบสั้น (air cast)">รองเท้าเฝือกลมแบบสั้น (air cast)</option>
+                            <option value="รองเท้าเฝือกลมแบบยาว (air cast)">รองเท้าเฝือกลมแบบยาว (air cast)</option>
+                            <option value="ผ้ายืดรัดข้อเท้า">ผ้ายืดรัดข้อเท้า</option>
+                            <option value="ถุงน่องหลังผ่าตัดเส้นเลือดขอด">ถุงน่องหลังผ่าตัดเส้นเลือดขอด</option>
+                            <option value="ผ้ายืดลดเข่า (Knee Support)">ผ้ายืดลดเข่า (Knee Support)</option>
+                            <option value="พยุงข้อเข่าและสะบ้าแบบมีแกน (Open Patella Flexible Bars)">
+                                พยุงข้อเข่าและสะบ้าแบบมีแกน (Open Patella Flexible Bars)</option>
+                            <option value="พยุงเข่าปรับองศาได้ แบบยาว/สั้น (Hinge Knee Support)">พยุงเข่าปรับองศาได้
+                                แบบยาว/สั้น (Hinge Knee Support)</option>
+            `;
+
+            // Clear file input
+            document.getElementById('excel-file').value = '';
+
+            // Hide status
+            showUploadStatus('', false);
+
+            // Reset form
+            toggleInputs();
+        }
+
+        function goToSlide(slideIndex, userInitiated = false) {
+            const images = document.querySelectorAll('.slider-image');
+            const dots = document.querySelectorAll('.dot');
+
+            if (images.length === 0) return;
+
+            // Auto load disabled
+
+            // Hide current image
+            images[currentSlide].classList.remove('opacity-100');
+            images[currentSlide].classList.add('opacity-0');
+
+            // Remove active dot
+            dots[currentSlide].classList.remove('active');
+
+            // Update current slide
+            currentSlide = slideIndex;
+
+            // Show new image
+            images[currentSlide].classList.remove('opacity-0');
+            images[currentSlide].classList.add('opacity-100');
+
+            // Add active dot
+            dots[currentSlide].classList.add('active');
+
+            // Update navigation buttons
+            updateNavigationButtons();
+        }
+
+        function nextSlide() {
+            const nextIndex = (currentSlide + 1) % currentImages.length;
+            goToSlide(nextIndex);
+        }
+
+        function prevSlide() {
+            const prevIndex = (currentSlide - 1 + currentImages.length) % currentImages.length;
+            goToSlide(prevIndex);
+        }
+
+        function nextSlideManual() {
+            const nextIndex = (currentSlide + 1) % currentImages.length;
+            goToSlide(nextIndex, true);
+        }
+
+        function prevSlideManual() {
+            const prevIndex = (currentSlide - 1 + currentImages.length) % currentImages.length;
+            goToSlide(prevIndex, true);
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            // Show/hide buttons based on number of images
+            if (currentImages.length <= 1) {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+            } else {
+                prevBtn.style.display = 'flex';
+                nextBtn.style.display = 'flex';
+            }
+        }
+
+        function toggleInputs() {
+            const deviceName = document.getElementById('deviceName').value;
+            const sizeCmInput = document.getElementById('sizeCm');
+            const sizeInchInput = document.getElementById('sizeInch');
+            const heightCmInput = document.getElementById('heightCm');
+            const sizeCmLabel = document.getElementById('size-cm-label');
+            const sizeInchLabel = document.getElementById('size-inch-label');
+            const heightLabel = document.getElementById('height-label');
+
+            // Reset all inputs and labels
+            sizeCmInput.disabled = true;
+            sizeCmInput.value = '';
+            sizeInchInput.disabled = true;
+            sizeInchInput.value = '';
+            heightCmInput.disabled = true;
+            heightCmInput.value = '';
+            sizeCmLabel.textContent = 'ขนาด (cm)';
+            sizeInchLabel.textContent = 'ขนาด (นิ้ว)';
+            heightLabel.textContent = 'ส่วนสูง (cm)';
+
+            // Enable and update labels based on selected device
+            if (deviceName === 'OT196 ไม้ค้ำยัน (Crutches)') {
+                heightCmInput.disabled = false;
+            } else {
+                // Check if device exists in Excel data or default data
+                const hasDeviceData = deviceDataFromExcel[deviceName] || deviceData[deviceName];
+
+                if (hasDeviceData) {
+                    sizeCmInput.disabled = false;
+                    sizeInchInput.disabled = false;
+                    if (measurementLabels[deviceName]) {
+                        sizeCmLabel.textContent = measurementLabels[deviceName];
+                        sizeInchLabel.textContent = measurementLabels[deviceName].replace('(cm)', '(นิ้ว)');
+                    }
+                }
+            }
+
+            // Show image slider if device is selected
+            if (deviceName) {
+                showImageSlider(deviceName);
+            } else {
+                document.getElementById('image-slider-section').classList.add('hidden');
+            }
+        }
+
+        // Google Sheets integration removed
+
+        // Usage stats removed
+
+        function calculateSize() {
+            const deviceName = document.getElementById('deviceName').value;
+            const heightCm = document.getElementById('heightCm').value;
+            const sizeCm = document.getElementById('sizeCm').value;
+            const sizeInch = document.getElementById('sizeInch').value;
+            let result = '';
+            // Data saving removed
+
+            if (deviceName === 'OT196 ไม้ค้ำยัน (Crutches)') {
+                const height = parseFloat(heightCm);
+                if (!isNaN(height)) {
+                    if (height <= 131) result = '34';
+                    else if (height >= 132 && height <= 136) result = '36 ';
+                    else if (height >= 137 && height <= 141) result = '38 ';
+                    else if (height >= 142 && height <= 146) result = '40 ';
+                    else if (height >= 147 && height <= 151) result = '42 ';
+                    else if (height >= 152 && height <= 156) result = '44 ';
+                    else if (height >= 157 && height <= 161) result = '46 ';
+                    else if (height >= 162 && height <= 166) result = '48 ';
+                    else if (height >= 167 && height <= 171) result = '50 ';
+                    else if (height >= 172 && height <= 176) result = '52 ';
+                    else if (height >= 177 && height <= 181) result = '54 ';
+                    else if (height >= 182) result = '56 ';
+                }
+                // Data saving removed
+            } else if (deviceData[deviceName]) {
+                const data = deviceData[deviceName];
+                const cmValue = parseFloat(sizeCm);
+                const inchValue = parseFloat(sizeInch);
+
+                // ตรวจสอบว่าอุปกรณ์มีข้อมูลครบหรือไม่
+                const hasValidData = data.some(item => item.cm.min > 0 && item.cm.max > 0);
+
+                if (!hasValidData) {
+                    result = `ข้อมูลขนาดสำหรับ ${deviceName} ยังไม่ครบถ้วน กรุณาติดต่อผู้ดูแลระบบ`;
+                } else {
+                    // Logic to prioritize CM input, or fall back to Inches if CM is empty
+                    // โค้ดส่วนนี้จะตรวจสอบว่ามีการกรอกข้อมูลในช่องขนาด (cm) หรือไม่
+                    // ถ้ามีการกรอกค่า ระบบจะใช้ค่านั้นในการคำนวณ
+                    // ถ้าไม่มีการกรอกค่า (cm) ระบบจะไปตรวจสอบและใช้ค่าจากช่องขนาด (นิ้ว) แทน
+                    if (!isNaN(cmValue) && cmValue > 0) {
+                        for (const item of data) {
+                            if (cmValue >= item.cm.min && cmValue <= item.cm.max) {
+                                result = item.size;
+                                break;
+                            }
+                        }
+                        // ถ้าไม่พบขนาดที่เหมาะสม ให้แสดงข้อความแจ้งเตือน
+                        if (!result) {
+                            const validData = data.filter(item => item.cm.min > 0 && item.cm.max > 0);
+                            const minSize = Math.min(...validData.map(item => item.cm.min));
+                            const maxSize = Math.max(...validData.map(item => item.cm.max));
+                            const minInch = Math.min(...validData.map(item => item.inch.min));
+                            const maxInch = Math.max(...validData.map(item => item.inch.max));
+                            result = `ขนาด ${cmValue} cm ไม่อยู่ในช่วงที่กำหนด (${minSize}-${maxSize} cm หรือ ${minInch}-${maxInch} นิ้ว)`;
+                        }
+                    } else if (!isNaN(inchValue) && inchValue > 0) {
+                        // ตรวจสอบทั้งจากข้อมูลนิ้วโดยตรงและแปลงเป็นเซนติเมตร
+                        for (const item of data) {
+                            // ตรวจสอบจากข้อมูลนิ้วโดยตรง
+                            if (inchValue >= item.inch.min && inchValue <= item.inch.max) {
+                                result = item.size;
+                                break;
+                            }
+                            // ตรวจสอบจากการแปลงเป็นเซนติเมตร
+                            const cmFromInch = inchValue * 2.54;
+                            if (cmFromInch >= item.cm.min && cmFromInch <= item.cm.max) {
+                                result = item.size;
+                                break;
+                            }
+                        }
+                        // ถ้าไม่พบขนาดที่เหมาะสม ให้แสดงข้อความแจ้งเตือน
+                        if (!result) {
+                            const validData = data.filter(item => item.cm.min > 0 && item.cm.max > 0);
+                            const minSize = Math.min(...validData.map(item => item.cm.min));
+                            const maxSize = Math.max(...validData.map(item => item.cm.max));
+                            const minInch = Math.min(...validData.map(item => item.inch.min));
+                            const maxInch = Math.max(...validData.map(item => item.inch.max));
+                            result = `ขนาด ${inchValue} นิ้ว ไม่อยู่ในช่วงที่กำหนด (${minInch}-${maxInch} นิ้ว หรือ ${minSize}-${maxSize} cm)`;
+                        }
+                    }
+                }
+                // Data saving removed
+            }
+
+            const resultElement = document.getElementById('result');
+
+            // แสดงผลลัพธ์พร้อมข้อมูลเพิ่มเติม
+            if (result) {
+                // ตรวจสอบว่าเป็นข้อความแจ้งเตือนหรือผลลัพธ์ปกติ
+                const isWarning = result.includes('ไม่อยู่ในช่วงที่กำหนด') || result.includes('ยังไม่ครบถ้วน');
+                const isError = result.includes('ยังไม่ครบถ้วน');
+
+                resultElement.innerHTML = `
+                    <div class="text-3xl font-bold ${isError ? 'text-red-700' : isWarning ? 'text-red-600' : 'custom-purple-text'} mb-3 text-center">
+                        ${isError ? result : isWarning ? result : `ไซส์ ${result}`}
+                    </div>
+                    <div class="text-sm text-gray-600 space-y-1 text-center">
+                        <div class="font-medium">อุปกรณ์: ${deviceName}</div>
+                        ${deviceName === 'ไม้ค้ำยัน (Crutches)' ?
+                        `<div>ส่วนสูง: ${heightCm} cm</div>` :
+                        `<div>ขนาดที่วัด: ${sizeCm ? sizeCm + ' เซนติเมตร' : ''} ${sizeInch ? sizeInch + ' นิ้ว' : ''}</div>
+                             <div class="text-xs text-gray-500 mt-1">
+                                 ${result && !result.includes('ไม่อยู่ในช่วง') && !result.includes('ยังไม่ครบถ้วน') ?
+                            `ช่วงขนาด: ${deviceData[deviceName] ?
+                                deviceData[deviceName].find(item => item.size === result) ?
+                                    `${deviceData[deviceName].find(item => item.size === result).cm.min}-${deviceData[deviceName].find(item => item.size === result).cm.max} cm (${deviceData[deviceName].find(item => item.size === result).inch.min}-${deviceData[deviceName].find(item => item.size === result).inch.max} นิ้ว)` :
+                                    '' :
+                                ''}` :
+                            ''}
+                             </div>`
+                    }
+                        <div class="text-xs ${isError ? 'text-red-700' : isWarning ? 'text-red-600' : 'custom-purple-text'} mt-2 flex items-center justify-center">
+                            <span class="mr-1">${isError ? '❌' : isWarning ? '⚠' : ''}</span> 
+                            ${isError ? 'ข้อมูลไม่ครบถ้วน' : isWarning ? 'กรุณาตรวจสอบขนาด' : ''}
+                        </div>
+                    </div>
+                `;
+
+                // เพิ่ม animation effect
+                resultElement.style.transform = 'scale(1.05)';
+                resultElement.style.transition = 'transform 0.3s ease';
+                setTimeout(() => {
+                    resultElement.style.transform = 'scale(1)';
+                }, 300);
+
+                // Google Sheets integration removed
+            } else {
+                resultElement.innerHTML = `
+                    <div class="text-3xl font-bold text-gray-400 mb-2 text-center">-</div>
+                    <div class="text-sm text-gray-500">
+                        ${deviceName ? 'กรุณากรอกข้อมูลเพื่อดูผลลัพธ์' : 'กรุณาเลือกอุปกรณ์และกรอกข้อมูลเพื่อดูผลลัพธ์'}
+                    </div>
+                `;
+            }
+        }
+
+        // Initialize event listeners when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function () {
+                    mobileMenu.classList.toggle('hidden');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    if (mobileMenu.classList.contains('hidden')) {
+                        icon.className = 'fas fa-bars text-xl';
+                    } else {
+                        icon.className = 'fas fa-times text-xl';
+                    }
+                });
+            }
+
+            // Add event listeners for slider navigation buttons
+            document.getElementById('prev-btn').addEventListener('click', prevSlideManual);
+            document.getElementById('next-btn').addEventListener('click', nextSlideManual);
+
+            // Add event listeners for image type toggle buttons
+            document.getElementById('product-btn').addEventListener('click', () => switchImageType('product'));
+            document.getElementById('measurement-btn').addEventListener('click', () => switchImageType('measurement'));
+
+            // Auto load toggle removed
+
+            // Auto-slide functionality disabled
+        });
+    </script>
+
+</body>
+
+</html>
